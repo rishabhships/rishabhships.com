@@ -1,63 +1,169 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import CassettePlayer from '../components/CassettePlayer.astro';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`About — ${SITE_TITLE}`}
+			description="About Rishabh Gupta — Computer Scientist at Adobe Acrobat Android, leading mobile growth and monetization engineering at billion-install scale."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="reveal">
+				<p class="eyebrow">About</p>
+				<h1>I build mobile payments &amp; growth systems at billion-install scale.</h1>
+			</section>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			<section class="reveal">
+				<p>
+					I&rsquo;m a Computer Scientist at Adobe Acrobat, where I lead
+					growth, engagement, and monetization engineering for Acrobat
+					Android. The app has 1B+ installs and 95M+ monthly active users
+					globally, with payments served through Google Play Billing.
+				</p>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+				<p>My work spans three areas:</p>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+				<ul>
+					<li>
+						<strong>Mobile payments platform.</strong>
+						I own end-to-end stability of the in-app payments stack &mdash;
+						integration with Play Billing, subscription state machines,
+						receipt verification, observability, and the controlled-rollback
+						playbook that keeps payments healthy across releases. Most
+						recently I led the design and launch of Acrobat Mobile&rsquo;s
+						first cross-product subscription upgrade / downgrade /
+						cross-grade architecture, shipped in January 2026 with zero
+						production incidents since launch and subsequently adopted by
+						other Acrobat apps in the organization.
+					</li>
+					<li>
+						<strong>Growth engineering.</strong>
+						I lead the engagement charter that grew annual subscription
+						retention 35%, and shipped the server-driven, context-aware
+						paywall surface that delivered a 15% FY24 upsell uplift. I
+						also productionized our on-device ML personalization model
+						for the upsell experience &mdash; handling TFLite integration,
+						latency budgeting, and graceful fallbacks.
+					</li>
+					<li>
+						<strong>Mobile DevEx.</strong>
+						I build the automations that let our Android organization ship
+						monetization changes weekly: a Figma design linter (RTL, error
+						states, click journeys, light/dark mode, font scaling,
+						analytics coverage), an automated release-cherry-pick + Jira
+						workflow, and a weekly executive KPI digest pipeline that
+						ships a Monday-morning Slack message plus an auto-generated
+						PowerPoint readout.
+					</li>
+				</ul>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+				<p>
+					Mentoring engineers earlier in their careers is also a
+					meaningful share of what I do &mdash; I think it&rsquo;s one
+					of the highest-leverage things a senior IC can spend time on.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Earlier work</h2>
+				<p>
+					Before my current role, I was a Member of Technical Staff II at
+					Adobe Acrobat (Dec 2021&ndash;Apr 2025), where I led the
+					monetization and engagement charter on the same product.
+				</p>
+				<p>
+					Before Adobe, I led mobile development at Aon (2018&ndash;2021)
+					&mdash; built the original CoCubes Android app (50K+ downloads,
+					4.1&#9733;), led the React Native v2 unifying iOS and Android,
+					and revamped the Assessment app (150K+ downloads, 4.0&#9733;)
+					for remote candidate proctoring under poor-network conditions.
+				</p>
+				<p>
+					I started at Samsung R&amp;D as an intern on Samsung Pay,
+					contributing to UPI / NPCI compliance hardening and production
+					bug fixes.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Background</h2>
+				<p>
+					B.E. Computer Science from R.V. College of Engineering, Bangalore
+					(2014&ndash;2018, GPA 8.97/10). Based in Gurgaon, India.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Reach me</h2>
+				<ul class="reach-grid">
+					<li>
+						<a class="reach-card" href="mailto:rishabh@rishabhships.com">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">Email</span>
+								<span class="reach-label-bottom">rishabh@rishabhships.com</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="reach-card" href="https://linkedin.com/in/rg-rishabh-gupta" target="_blank" rel="noopener">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">LinkedIn</span>
+								<span class="reach-label-bottom">rg-rishabh-gupta</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="reach-card" href="https://github.com/rishabhships" target="_blank" rel="noopener">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">GitHub</span>
+								<span class="reach-label-bottom">rishabhships</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="reach-card" href="https://x.com/rishabhships" target="_blank" rel="noopener">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">X / Twitter</span>
+								<span class="reach-label-bottom">@rishabhships</span>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+		<CassettePlayer />
+
+		<style>
+			.eyebrow {
+				font-size: 0.85em;
+				color: var(--accent-dark);
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				margin-bottom: 0.5em;
+			}
+		</style>
+	</body>
+</html>

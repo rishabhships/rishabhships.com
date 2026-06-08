@@ -1,0 +1,572 @@
+---
+/*
+  CassettePlayer — floating bottom-right music player.
+
+  COLLAPSED STATE (default): a self-explanatory pill that reads
+    [cassette icon]  Tap for some reading music  ▶
+  so anyone who sees it understands what it is.
+
+  EXPANDED STATE: a clean panel with a SVG cassette (spinning reels when
+  playing), title/artist line, three transport controls, and a compact
+  tracklist. Click × to collapse.
+
+  Audio behaviour: browsers block autoplay without a click, so the player
+  starts paused. If MP3 files are missing in /public/music/ the player
+  gracefully shows a one-line hint and never errors.
+*/
+
+const tracks = [
+	{ title: 'Clair de Lune',     artist: 'Debussy · public domain',   src: '/music/track1.mp3' },
+	{ title: 'Gymnopédie No. 1',  artist: 'Satie · public domain',     src: '/music/track2.mp3' },
+	{ title: 'Canon in D',        artist: 'Pachelbel · public domain', src: '/music/track3.mp3' },
+];
+---
+
+<div id="cassette" class="cassette" data-state="collapsed" aria-label="Background music player">
+	<!-- ============================================================
+	     COLLAPSED — discoverable pill
+	     ============================================================ -->
+	<button id="cassette-trigger" class="cassette-trigger" aria-expanded="false" aria-controls="cassette-panel">
+		<span class="cassette-icon" aria-hidden="true">
+			<svg viewBox="0 0 44 28" width="36" height="24">
+				<!-- body -->
+				<rect x="0.5" y="0.5" width="43" height="27" rx="3.5" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+				<!-- top label strip -->
+				<rect x="4" y="3" width="36" height="6" rx="1" fill="#ccfbf1"/>
+				<!-- left reel -->
+				<circle cx="14" cy="18" r="4.5" fill="#cbd5e1" stroke="#475569" stroke-width="0.6"/>
+				<circle cx="14" cy="18" r="1.5" fill="#0f172a" class="cassette-icon-reel cassette-icon-reel-l"/>
+				<!-- right reel -->
+				<circle cx="30" cy="18" r="4.5" fill="#cbd5e1" stroke="#475569" stroke-width="0.6"/>
+				<circle cx="30" cy="18" r="1.5" fill="#0f172a" class="cassette-icon-reel cassette-icon-reel-r"/>
+			</svg>
+		</span>
+		<span class="cassette-trigger-text">
+			<span class="cassette-trigger-label">♪ Tap for some reading music</span>
+			<span class="cassette-trigger-sub" id="cassette-trigger-sub">Press play to start</span>
+		</span>
+		<span class="cassette-trigger-arrow" aria-hidden="true">▶</span>
+	</button>
+
+	<!-- ============================================================
+	     EXPANDED — full player
+	     ============================================================ -->
+	<div id="cassette-panel" class="cassette-panel" role="region" aria-label="Music player">
+		<div class="cassette-panel-head">
+			<span class="cassette-panel-eyebrow">♪ Reading music</span>
+			<button id="cassette-close" class="cassette-close" aria-label="Close player">×</button>
+		</div>
+
+		<!-- SVG cassette art -->
+		<div class="cassette-art-wrap">
+			<svg class="cassette-art" viewBox="0 0 220 110" aria-hidden="true">
+				<!-- body -->
+				<rect x="2" y="2" width="216" height="106" rx="10" fill="url(#cassette-grad)" stroke="#1e293b" stroke-width="1"/>
+				<defs>
+					<linearGradient id="cassette-grad" x1="0" y1="0" x2="0" y2="1">
+						<stop offset="0" stop-color="#1f2937"/>
+						<stop offset="1" stop-color="#0f172a"/>
+					</linearGradient>
+				</defs>
+				<!-- top screws -->
+				<circle cx="12" cy="12" r="2.2" fill="#94a3b8" opacity="0.7"/>
+				<circle cx="208" cy="12" r="2.2" fill="#94a3b8" opacity="0.7"/>
+				<!-- top label strip -->
+				<rect x="22" y="8" width="176" height="22" rx="2" fill="#ccfbf1"/>
+				<text x="110" y="23" text-anchor="middle" fill="#0f766e" font-size="11" font-weight="600" font-family="ui-sans-serif, system-ui">rishabhships · side A</text>
+
+				<!-- left reel -->
+				<g class="cassette-reel cassette-reel-l">
+					<circle cx="62" cy="65" r="22" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+					<circle cx="62" cy="65" r="14" fill="#1f2937"/>
+					<circle cx="62" cy="65" r="3.5" fill="#94a3b8"/>
+					<g stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round">
+						<line x1="62" y1="55" x2="62" y2="51"/>
+						<line x1="62" y1="79" x2="62" y2="75"/>
+						<line x1="52" y1="65" x2="48" y2="65"/>
+						<line x1="76" y1="65" x2="72" y2="65"/>
+					</g>
+				</g>
+				<!-- right reel -->
+				<g class="cassette-reel cassette-reel-r">
+					<circle cx="158" cy="65" r="22" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+					<circle cx="158" cy="65" r="14" fill="#1f2937"/>
+					<circle cx="158" cy="65" r="3.5" fill="#94a3b8"/>
+					<g stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round">
+						<line x1="158" y1="55" x2="158" y2="51"/>
+						<line x1="158" y1="79" x2="158" y2="75"/>
+						<line x1="148" y1="65" x2="144" y2="65"/>
+						<line x1="172" y1="65" x2="168" y2="65"/>
+					</g>
+				</g>
+
+				<!-- tape strip running across the bottom -->
+				<rect x="22" y="92" width="176" height="8" rx="1" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+				<g stroke="#334155" stroke-width="1">
+					<line x1="32"  y1="92" x2="32"  y2="100"/>
+					<line x1="52"  y1="92" x2="52"  y2="100"/>
+					<line x1="72"  y1="92" x2="72"  y2="100"/>
+					<line x1="92"  y1="92" x2="92"  y2="100"/>
+					<line x1="112" y1="92" x2="112" y2="100"/>
+					<line x1="132" y1="92" x2="132" y2="100"/>
+					<line x1="152" y1="92" x2="152" y2="100"/>
+					<line x1="172" y1="92" x2="172" y2="100"/>
+					<line x1="192" y1="92" x2="192" y2="100"/>
+				</g>
+				<!-- bottom screws -->
+				<circle cx="12" cy="98" r="2.2" fill="#94a3b8" opacity="0.7"/>
+				<circle cx="208" cy="98" r="2.2" fill="#94a3b8" opacity="0.7"/>
+			</svg>
+		</div>
+
+		<!-- Now playing -->
+		<div class="cassette-now-playing">
+			<div class="cassette-now-title" id="cassette-title">{tracks[0].title}</div>
+			<div class="cassette-now-artist" id="cassette-artist">{tracks[0].artist}</div>
+		</div>
+
+		<!-- Controls -->
+		<div class="cassette-controls">
+			<button class="cc-btn" id="cc-prev" aria-label="Previous track">
+				<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 6h2v12H6V6zm3.5 6 8.5 6V6l-8.5 6z"/></svg>
+			</button>
+			<button class="cc-btn cc-btn-play" id="cc-play" aria-label="Play">
+				<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" id="cc-play-icon"><path d="M8 5v14l11-7L8 5z"/></svg>
+			</button>
+			<button class="cc-btn" id="cc-next" aria-label="Next track">
+				<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+			</button>
+		</div>
+
+		<!-- Tracklist -->
+		<ul class="cassette-tracklist" id="cassette-tracklist">
+			{tracks.map((t, i) => (
+				<li>
+					<button class="cassette-track" data-index={i}>
+						<span class="cassette-track-num">{String(i + 1).padStart(2, '0')}</span>
+						<span class="cassette-track-meta">
+							<span class="cassette-track-title">{t.title}</span>
+							<span class="cassette-track-artist">{t.artist}</span>
+						</span>
+					</button>
+				</li>
+			))}
+		</ul>
+
+		<div class="cassette-hint" id="cassette-hint">Three public-domain pieces · drop MP3s into <code>public/music/</code> to enable playback.</div>
+	</div>
+
+	<audio id="cassette-audio" preload="none"></audio>
+
+	<script is:inline define:vars={{ trackList: tracks }}>
+		(function () {
+			const root = document.getElementById('cassette');
+			if (!root) return;
+			const trigger = document.getElementById('cassette-trigger');
+			const closeBtn = document.getElementById('cassette-close');
+			const playBtn = document.getElementById('cc-play');
+			const playIcon = document.getElementById('cc-play-icon');
+			const prevBtn = document.getElementById('cc-prev');
+			const nextBtn = document.getElementById('cc-next');
+			const audio = document.getElementById('cassette-audio');
+			const titleEl = document.getElementById('cassette-title');
+			const artistEl = document.getElementById('cassette-artist');
+			const subEl = document.getElementById('cassette-trigger-sub');
+			const hint = document.getElementById('cassette-hint');
+			const trackBtns = document.querySelectorAll('.cassette-track');
+
+			const PLAY_SVG = '<path d="M8 5v14l11-7L8 5z"/>';
+			const PAUSE_SVG = '<path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/>';
+
+			let current = 0;
+
+			function loadTrack(i) {
+				current = (i + trackList.length) % trackList.length;
+				audio.src = trackList[current].src;
+				titleEl.textContent = trackList[current].title;
+				artistEl.textContent = trackList[current].artist;
+				if (subEl) subEl.textContent = trackList[current].title;
+				trackBtns.forEach(function (btn, idx) {
+					btn.classList.toggle('is-active', idx === current);
+				});
+			}
+
+			function setPlaying(isPlaying) {
+				root.classList.toggle('is-playing', isPlaying);
+				playIcon.innerHTML = isPlaying ? PAUSE_SVG : PLAY_SVG;
+				playBtn.setAttribute('aria-label', isPlaying ? 'Pause' : 'Play');
+				if (subEl) {
+					subEl.textContent = isPlaying
+						? 'Now playing — ' + trackList[current].title
+						: trackList[current].title;
+				}
+			}
+
+			trigger.addEventListener('click', function () {
+				const expanded = root.dataset.state === 'expanded';
+				root.dataset.state = expanded ? 'collapsed' : 'expanded';
+				trigger.setAttribute('aria-expanded', String(!expanded));
+			});
+			closeBtn.addEventListener('click', function (e) {
+				e.stopPropagation();
+				root.dataset.state = 'collapsed';
+				trigger.setAttribute('aria-expanded', 'false');
+			});
+
+			playBtn.addEventListener('click', function () {
+				if (audio.paused) {
+					const p = audio.play();
+					if (p && typeof p.then === 'function') {
+						p.then(function () { setPlaying(true); })
+						 .catch(function () {
+							hint.textContent = 'Track not loaded yet — drop MP3s into public/music/ (see README).';
+							hint.classList.add('is-warn');
+						 });
+					} else {
+						setPlaying(true);
+					}
+				} else {
+					audio.pause();
+					setPlaying(false);
+				}
+			});
+			prevBtn.addEventListener('click', function () {
+				loadTrack(current - 1);
+				if (!audio.paused) audio.play();
+			});
+			nextBtn.addEventListener('click', function () {
+				loadTrack(current + 1);
+				if (!audio.paused) audio.play();
+			});
+			trackBtns.forEach(function (btn, idx) {
+				btn.addEventListener('click', function () {
+					loadTrack(idx);
+					const p = audio.play();
+					if (p && typeof p.then === 'function') {
+						p.then(function () { setPlaying(true); })
+						 .catch(function () {
+							hint.textContent = 'Track not loaded yet — drop MP3s into public/music/ (see README).';
+							hint.classList.add('is-warn');
+						 });
+					}
+				});
+			});
+
+			audio.addEventListener('ended', function () {
+				loadTrack(current + 1);
+				const p = audio.play();
+				if (p && typeof p.then === 'function') {
+					p.then(function () { setPlaying(true); }).catch(function () { setPlaying(false); });
+				}
+			});
+			audio.addEventListener('error', function () {
+				setPlaying(false);
+				hint.textContent = 'Track not loaded yet — drop MP3s into public/music/ (see README).';
+				hint.classList.add('is-warn');
+			});
+
+			loadTrack(0);
+		})();
+	</script>
+</div>
+
+<style>
+	.cassette {
+		position: fixed;
+		right: 1.25rem;
+		bottom: 1.25rem;
+		z-index: 50;
+		font-family: var(--font-sans);
+	}
+
+	/* ============================================================
+	   COLLAPSED — pill trigger
+	   ============================================================ */
+	.cassette-trigger {
+		all: unset;
+		cursor: pointer;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.7em;
+		padding: 0.55em 0.95em 0.55em 0.7em;
+		background: var(--bg-elevated);
+		border: 1px solid var(--border);
+		border-radius: 999px;
+		box-shadow:
+			0 2px 6px rgba(15, 23, 42, 0.06),
+			0 12px 28px rgba(15, 23, 42, 0.10);
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease,
+			border-color 0.2s ease;
+	}
+	.cassette-trigger:hover {
+		transform: translateY(-2px);
+		border-color: var(--accent);
+		box-shadow:
+			0 4px 10px rgba(13, 148, 136, 0.10),
+			0 16px 34px rgba(15, 23, 42, 0.14);
+	}
+	.cassette[data-state="expanded"] .cassette-trigger {
+		display: none;
+	}
+
+	.cassette-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 0;
+	}
+
+	.cassette-trigger-text {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.15;
+		text-align: left;
+	}
+	.cassette-trigger-label {
+		font-size: 0.86em;
+		font-weight: 600;
+		color: var(--ink);
+	}
+	.cassette-trigger-sub {
+		font-size: 0.7em;
+		color: var(--ink-soft);
+		margin-top: 1px;
+	}
+	.cassette-trigger-arrow {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		background: var(--accent);
+		color: white;
+		font-size: 9px;
+		padding-left: 2px;
+		box-sizing: border-box;
+		transition: background 0.2s ease, transform 0.2s ease;
+	}
+	.cassette-trigger:hover .cassette-trigger-arrow {
+		background: var(--accent-dark);
+		transform: scale(1.06);
+	}
+
+	/* Gentle pulse so eyes land on it. */
+	.cassette[data-state="collapsed"]:not(.is-playing) .cassette-trigger-arrow {
+		animation: cassette-pulse 2.6s ease-in-out infinite;
+	}
+	@keyframes cassette-pulse {
+		0%, 100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.50); }
+		50%      { box-shadow: 0 0 0 7px rgba(13, 148, 136, 0); }
+	}
+
+	/* ============================================================
+	   EXPANDED — full player panel
+	   ============================================================ */
+	.cassette-panel {
+		display: none;
+		width: 304px;
+		background: var(--bg-elevated);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		box-shadow:
+			0 8px 24px rgba(15, 23, 42, 0.12),
+			0 24px 48px rgba(15, 23, 42, 0.08);
+		overflow: hidden;
+	}
+	.cassette[data-state="expanded"] .cassette-panel {
+		display: block;
+		animation: cassette-pop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	@keyframes cassette-pop {
+		from { opacity: 0; transform: translateY(8px) scale(0.97); }
+		to   { opacity: 1; transform: translateY(0) scale(1); }
+	}
+
+	.cassette-panel-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.7em 0.9em 0.4em 1.1em;
+	}
+	.cassette-panel-eyebrow {
+		font-size: 0.7em;
+		font-weight: 600;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+		color: var(--accent-dark);
+	}
+	.cassette-close {
+		all: unset;
+		cursor: pointer;
+		width: 26px;
+		height: 26px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		color: var(--ink-soft);
+		font-size: 20px;
+		line-height: 1;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+	.cassette-close:hover {
+		background: rgba(15, 23, 42, 0.06);
+		color: var(--ink);
+	}
+
+	.cassette-art-wrap {
+		padding: 0.2em 1.1em 0.5em;
+	}
+	.cassette-art {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+	.cassette-reel {
+		transform-origin: center;
+		transform-box: fill-box;
+	}
+	.cassette.is-playing .cassette-reel-l,
+	.cassette.is-playing .cassette-reel-r {
+		animation: cassette-reel-spin 2.4s linear infinite;
+	}
+	@keyframes cassette-reel-spin {
+		to { transform: rotate(360deg); }
+	}
+
+	/* Now playing line */
+	.cassette-now-playing {
+		text-align: center;
+		padding: 0.4em 1.1em 0.5em;
+	}
+	.cassette-now-title {
+		font-size: 0.95em;
+		font-weight: 600;
+		color: var(--ink);
+		line-height: 1.2;
+	}
+	.cassette-now-artist {
+		font-size: 0.78em;
+		color: var(--ink-soft);
+		margin-top: 2px;
+	}
+
+	/* Controls */
+	.cassette-controls {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 14px;
+		padding: 0.4em 1.1em 0.85em;
+	}
+	.cc-btn {
+		all: unset;
+		cursor: pointer;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		background: transparent;
+		border: 1px solid var(--border);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--ink-muted);
+		transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+	}
+	.cc-btn:hover {
+		border-color: var(--accent);
+		color: var(--accent);
+		transform: translateY(-1px);
+	}
+	.cc-btn-play {
+		width: 46px;
+		height: 46px;
+		background: var(--accent);
+		border-color: var(--accent);
+		color: white;
+		box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+	}
+	.cc-btn-play:hover {
+		background: var(--accent-dark);
+		border-color: var(--accent-dark);
+		color: white;
+		transform: translateY(-1px) scale(1.04);
+	}
+
+	/* Tracklist */
+	.cassette-tracklist {
+		list-style: none;
+		margin: 0;
+		padding: 0.35em 0.55em;
+		background: #f8fafc;
+		border-top: 1px solid var(--border);
+	}
+	.cassette-tracklist li { margin: 0; }
+	.cassette-track {
+		all: unset;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		width: 100%;
+		padding: 7px 9px;
+		border-radius: 7px;
+		box-sizing: border-box;
+		transition: background 0.12s ease;
+	}
+	.cassette-track:hover { background: rgba(13, 148, 136, 0.07); }
+	.cassette-track.is-active { background: rgba(13, 148, 136, 0.12); }
+	.cassette-track.is-active .cassette-track-title { color: var(--accent-dark); }
+	.cassette-track-num {
+		font-family: var(--font-mono);
+		font-size: 0.72em;
+		color: var(--ink-soft);
+		min-width: 22px;
+	}
+	.cassette-track-meta { display: flex; flex-direction: column; line-height: 1.15; }
+	.cassette-track-title { font-size: 0.85em; font-weight: 600; color: var(--ink); }
+	.cassette-track-artist { font-size: 0.7em; color: var(--ink-soft); margin-top: 1px; }
+
+	.cassette-hint {
+		font-size: 0.68em;
+		color: var(--ink-soft);
+		text-align: center;
+		padding: 0.55em 1em 0.85em;
+		background: #f8fafc;
+		line-height: 1.45;
+	}
+	.cassette-hint code {
+		font-size: 0.92em;
+		padding: 1px 5px;
+	}
+	.cassette-hint.is-warn { color: var(--warm); }
+
+	/* ============================================================
+	   Mobile
+	   ============================================================ */
+	@media (max-width: 540px) {
+		.cassette {
+			right: 0.75rem;
+			bottom: 0.75rem;
+		}
+		.cassette-trigger-text { display: none; }
+		.cassette-trigger {
+			padding: 0.5em 0.6em;
+			gap: 0.4em;
+		}
+		.cassette-panel { width: min(86vw, 320px); }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.cassette[data-state="collapsed"]:not(.is-playing) .cassette-trigger-arrow {
+			animation: none;
+		}
+		.cassette.is-playing .cassette-reel-l,
+		.cassette.is-playing .cassette-reel-r {
+			animation: none;
+		}
+	}
+</style>

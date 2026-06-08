@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import CassettePlayer from '../components/CassettePlayer.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
@@ -13,37 +14,201 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<section class="hero reveal">
+				<p class="eyebrow">Hi — I&rsquo;m Rishabh.</p>
+				<h1>Mobile growth &amp; <span class="gradient-text">monetization engineering.</span></h1>
+				<p class="tagline">
+					Computer Scientist at Adobe Acrobat Android &mdash;
+					<strong>1B+ installs, 95M+ MAU</strong>, Google Play Billing globally.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>What I do</h2>
+				<p>
+					I lead growth, engagement, and monetization engineering for Acrobat
+					Android. My work sits at the intersection of mobile architecture and
+					revenue.
+				</p>
+
+				<ul class="pillars">
+					<li>
+						<span class="pillar-tag">Payments</span>
+						<strong>Payments &amp; subscriptions.</strong>
+						I own the Acrobat Android in-app payments stack end-to-end.
+						Most recently I led the cross-product subscription
+						upgrade / downgrade / cross-grade rollout shipped in
+						January 2026 &mdash; zero production incidents since
+						launch, and the design has been adopted by other
+						Acrobat apps in the organization.
+					</li>
+					<li>
+						<span class="pillar-tag">Growth</span>
+						<strong>Growth engineering.</strong>
+						I lead the engagement charter that grew annual subscription
+						retention 35%, and shipped the server-driven paywall surface
+						that delivered a 15% FY24 upsell uplift. I also productionized
+						our on-device ML personalization model for the upsell experience.
+					</li>
+					<li>
+						<span class="pillar-tag">DevEx</span>
+						<strong>Mobile DevEx.</strong>
+						I build the automations that let our Android organization ship
+						monetization changes weekly &mdash; a Figma design linter, an
+						automated release-cherry-pick + Jira workflow, and a weekly
+						executive KPI digest pipeline.
+					</li>
+				</ul>
+
+				<p>
+					Mentoring engineers earlier in their careers is also a
+					meaningful share of what I do day-to-day.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Writing</h2>
+				<p>
+					I write about mobile payments architecture, subscription systems,
+					and Android developer experience.
+					<a href="/blog">Read the blog &rarr;</a>
+					<em>First post coming soon.</em>
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Selective consulting</h2>
+				<div class="soft-cta">
+					<p>
+						Outside Adobe, I take a small number of consulting
+						engagements per quarter &mdash; <strong>mobile payments
+						architecture audits</strong> for consumer apps with &gt;100K MAU.
+					</p>
+					<p>
+						If your subscription stack feels like it has hidden
+						revenue leakage or instability,
+						<a href="/consulting">learn more</a> or
+						<a href="mailto:rishabh@rishabhships.com?subject=Mobile%20payments%20audit%20inquiry">say hi</a>.
+					</p>
+				</div>
+			</section>
+
+			<section class="reveal">
+				<h2>Reach me</h2>
+				<ul class="reach-grid">
+					<li>
+						<a class="reach-card" href="mailto:rishabh@rishabhships.com">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">Email</span>
+								<span class="reach-label-bottom">rishabh@rishabhships.com</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="reach-card" href="https://linkedin.com/in/rg-rishabh-gupta" target="_blank" rel="noopener">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77Z"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">LinkedIn</span>
+								<span class="reach-label-bottom">rg-rishabh-gupta</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="reach-card" href="https://github.com/rishabhships" target="_blank" rel="noopener">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">GitHub</span>
+								<span class="reach-label-bottom">rishabhships</span>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="reach-card" href="https://x.com/rishabhships" target="_blank" rel="noopener">
+							<span class="reach-icon" aria-hidden="true">
+								<svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor"><path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/></svg>
+							</span>
+							<span class="reach-label">
+								<span class="reach-label-top">X / Twitter</span>
+								<span class="reach-label-bottom">@rishabhships</span>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</section>
 		</main>
 		<Footer />
+		<CassettePlayer />
+
+		<style>
+			.eyebrow {
+				font-size: 0.95em;
+				color: var(--ink-muted);
+				font-weight: 500;
+				margin-bottom: 0.6em;
+				letter-spacing: 0.02em;
+			}
+			.hero {
+				margin-bottom: 2.5em;
+			}
+			.hero h1 {
+				margin-bottom: 0.5em;
+			}
+			.gradient-text {
+				background: linear-gradient(90deg, var(--accent) 0%, var(--warm) 100%);
+				-webkit-background-clip: text;
+				background-clip: text;
+				color: transparent;
+				background-size: 200% 100%;
+				animation: gradient-shift 8s ease-in-out infinite;
+			}
+			@keyframes gradient-shift {
+				0%, 100% { background-position: 0% 50%; }
+				50%      { background-position: 100% 50%; }
+			}
+			.tagline {
+				font-size: 1.15em;
+				color: var(--ink-muted);
+				margin-bottom: 0;
+			}
+			.pillars {
+				list-style: none;
+				padding: 0;
+				margin: 1.5em 0;
+				display: grid;
+				gap: 1em;
+			}
+			.pillars li {
+				padding: 1.1em 1.25em;
+				border: 1px solid var(--border);
+				border-radius: 12px;
+				background: rgba(255, 255, 255, 0.55);
+				backdrop-filter: blur(6px);
+				transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.pillars li:hover {
+				border-color: var(--accent);
+				transform: translateY(-2px);
+				box-shadow: 0 8px 20px rgba(13, 148, 136, 0.08);
+			}
+			.pillar-tag {
+				display: inline-block;
+				font-size: 0.72em;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--accent-dark);
+				background: var(--accent-soft);
+				padding: 3px 8px;
+				border-radius: 4px;
+				margin-bottom: 0.6em;
+			}
+		</style>
 	</body>
 </html>

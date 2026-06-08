@@ -15,10 +15,30 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Blog — ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
 			main {
 				width: 960px;
+			}
+			h1 {
+				font-size: 2.5em;
+				letter-spacing: -0.015em;
+				margin-bottom: 0.3em;
+			}
+			.intro {
+				font-size: 1.1em;
+				color: rgb(var(--gray));
+				margin-bottom: 2.5em;
+			}
+			.coming-soon {
+				padding: 2em;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 10px;
+				background: rgba(var(--gray-light), 0.35);
+				color: rgb(var(--gray-dark));
+			}
+			.coming-soon p {
+				margin: 0.5em 0;
 			}
 			ul {
 				display: flex;
@@ -89,10 +109,25 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
+			<h1>Blog</h1>
+			<p class="intro">
+				Writing about mobile payments architecture, subscription systems,
+				and Android developer experience.
+			</p>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
+				{posts.length === 0 ? (
+					<div class="coming-soon">
+						<p>First post coming soon.</p>
+						<p>
+							In the meantime, find me on{' '}
+							<a href="https://linkedin.com/in/rg-rishabh-gupta">LinkedIn</a>,{' '}
+							<a href="https://github.com/rishabhships">GitHub</a>, or{' '}
+							<a href="https://x.com/rishabhships">X</a>.
+						</p>
+					</div>
+				) : (
+					<ul>
+						{posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.id}/`}>
 									{post.data.heroImage && (
@@ -104,9 +139,9 @@ const posts = (await getCollection('blog')).sort(
 									</p>
 								</a>
 							</li>
-						))
-					}
-				</ul>
+						))}
+					</ul>
+				)}
 			</section>
 		</main>
 		<Footer />

@@ -1,0 +1,189 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import CassettePlayer from '../components/CassettePlayer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Consulting — ${SITE_TITLE}`}
+			description="Mobile payments architecture audits for consumer Android apps with >100K MAU — two-week engagement, written report, 90-minute readout."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="reveal">
+				<p class="eyebrow">Consulting</p>
+				<h1>Mobile payments architecture audit.</h1>
+				<p class="tagline">
+					A focused, two-week engagement for consumer Android apps
+					with &gt;100K MAU. I find the cracks in your subscription
+					stack before your users do.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Who this is for</h2>
+				<ul class="check-list">
+					<li>You run a consumer mobile app with subscription revenue on Google Play.</li>
+					<li>You have &gt;100K MAU and recurring billing complexity (renewals, upgrades, refunds, edge cases).</li>
+					<li>You suspect there&rsquo;s revenue leakage, hidden instability, or accumulating tech debt in your billing stack &mdash; but no one internally has time to dig in.</li>
+					<li>You want a senior outside read in writing, not a sales pitch.</li>
+				</ul>
+			</section>
+
+			<section class="reveal">
+				<h2>What you get</h2>
+				<ol class="numbered-list">
+					<li>
+						<strong>Architecture review.</strong>
+						I read your billing-related code, your subscription state machine,
+						your receipt-verification flow, and the surrounding observability.
+						I look at it the way I look at Adobe Acrobat&rsquo;s &mdash;
+						the same lens that ships Play Billing changes to 95M+ MAU without
+						incidents.
+					</li>
+					<li>
+						<strong>Findings report.</strong>
+						A written document organized by severity (P0/P1/P2), each finding
+						with: the issue, the user-visible impact, the revenue/stability
+						risk, and a concrete remediation. Nothing vague.
+					</li>
+					<li>
+						<strong>Readout call.</strong>
+						A 90-minute video call with your engineering &amp; product
+						leadership to walk through findings, prioritize, and answer
+						questions live.
+					</li>
+					<li>
+						<strong>30 days of async follow-up.</strong>
+						As your team starts the remediation work, you can email me
+						questions or share a PR for spot review. No new meetings,
+						just unblocking.
+					</li>
+				</ol>
+			</section>
+
+			<section class="reveal">
+				<h2>Scope &amp; pricing</h2>
+				<ul class="meta-list">
+					<li><span>Duration</span> <strong>2 weeks, fixed.</strong></li>
+					<li><span>Format</span> <strong>Async + 90-minute readout call.</strong></li>
+					<li><span>Pricing</span> <strong>From $3,500 USD</strong>, scoped per engagement.</li>
+					<li><span>Availability</span> <strong>2&ndash;3 engagements / quarter.</strong> Booked first-come.</li>
+				</ul>
+				<p class="fine-print">
+					Pricing is intentionally bespoke &mdash; complexity varies. I&rsquo;ll
+					give you a fixed number after a 20-minute scoping call.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Why me</h2>
+				<p>
+					I own end-to-end stability of Adobe Acrobat Android&rsquo;s
+					in-app payments stack &mdash; one of the most-installed Android
+					apps in the world. I&rsquo;ve shipped Acrobat Mobile&rsquo;s
+					first cross-product subscription upgrade / downgrade /
+					cross-grade architecture (Jan 2026, zero production incidents
+					since launch, adopted by other Acrobat apps), instituted the
+					controlled-rollback playbook for payments, and reduced
+					payment-related incidents 23% quarter-over-quarter.
+				</p>
+				<p>
+					What I bring isn&rsquo;t generic mobile architecture advice.
+					It&rsquo;s a specific lens on subscription state machines,
+					revenue observability, and the failure modes that show up at
+					billion-install scale.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Get in touch</h2>
+				<div class="soft-cta">
+					<p>
+						Tell me a bit about your app (MAU, what flavor of subscription complexity,
+						any recent incidents), and I&rsquo;ll come back with a 20-minute
+						scoping-call slot.
+					</p>
+					<p>
+						<a class="primary-btn" href="mailto:rishabh@rishabhships.com?subject=Mobile%20payments%20audit%20inquiry">Email rishabh@rishabhships.com &rarr;</a>
+					</p>
+				</div>
+			</section>
+		</main>
+		<Footer />
+		<CassettePlayer />
+
+		<style>
+			.eyebrow {
+				font-size: 0.85em;
+				color: var(--accent-dark);
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				margin-bottom: 0.5em;
+			}
+			.tagline {
+				font-size: 1.15em;
+				color: var(--ink-muted);
+				margin-bottom: 2em;
+			}
+			.check-list, .numbered-list {
+				padding-left: 1.3em;
+			}
+			.check-list li, .numbered-list li {
+				margin-bottom: 0.9em;
+			}
+			.meta-list {
+				list-style: none;
+				padding: 0;
+				margin: 1em 0;
+				border: 1px solid var(--border);
+				border-radius: 12px;
+				background: var(--bg-elevated);
+				overflow: hidden;
+			}
+			.meta-list li {
+				display: flex;
+				justify-content: space-between;
+				gap: 1em;
+				padding: 0.85em 1.2em;
+				border-bottom: 1px solid var(--border);
+				font-size: 0.97em;
+			}
+			.meta-list li:last-child { border-bottom: 0; }
+			.meta-list li > span {
+				color: var(--ink-soft);
+				font-weight: 500;
+			}
+			.fine-print {
+				font-size: 0.88em;
+				color: var(--ink-muted);
+				margin-top: 0.6em;
+			}
+			.primary-btn {
+				display: inline-block;
+				padding: 0.7em 1.4em;
+				background: var(--accent);
+				color: white;
+				border-radius: 8px;
+				text-decoration: none;
+				font-weight: 600;
+				transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+			}
+			.primary-btn:hover {
+				background: var(--accent-dark);
+				color: white;
+				transform: translateY(-1px);
+				box-shadow: 0 8px 18px rgba(13, 148, 136, 0.22);
+				text-decoration: none;
+			}
+		</style>
+	</body>
+</html>
