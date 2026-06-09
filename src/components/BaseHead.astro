@@ -3,19 +3,34 @@
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
-import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
 
 interface Props {
 	title: string;
 	description: string;
-	image?: ImageMetadata;
+	image?: ImageMetadata | string;
+	ogTitle?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
+const {
+	title,
+	description,
+	image = '/og-image.png',
+	ogTitle,
+} = Astro.props;
+
+// OG title can be richer than the visible browser title.
+// Defaults to a descriptive string suitable for social shares.
+const socialTitle =
+	ogTitle ??
+	'Rishabh Gupta — Senior Android Engineer · Mobile Payments & Subscriptions @ Adobe Acrobat Android';
+
+// Resolve image URL: handle both ImageMetadata (Astro asset) and raw string paths.
+const imageSrc = typeof image === 'string' ? image : image.src;
+const imageURL = new URL(imageSrc, Astro.site).toString();
 ---
 
 <!-- Global Metadata -->
@@ -31,6 +46,8 @@ const { title, description, image = FallbackImage } = Astro.props;
 	href={new URL('rss.xml', Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
+<meta name="author" content="Rishabh Gupta" />
+<meta name="theme-color" content="#0d9488" />
 
 <Font cssVariable="--font-atkinson" preload />
 
@@ -45,16 +62,22 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
+<meta property="og:site_name" content="rishabhships.com" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content={socialTitle} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Rishabh Gupta — Mobile payments & subscription architecture engineering at Adobe Acrobat Android" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
+<meta property="twitter:title" content={socialTitle} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+<meta property="twitter:image" content={imageURL} />
+<meta property="twitter:image:alt" content="Rishabh Gupta — Mobile payments & subscription architecture engineering at Adobe Acrobat Android" />
 
 <script is:inline>
 	// Scroll-triggered fade-in for any element with class="reveal".
