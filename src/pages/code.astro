@@ -1,0 +1,242 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import CassettePlayer from '../components/CassettePlayer.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Code — ${SITE_TITLE}`}
+			description="Open-source Kotlin libraries and tools for mobile payments and subscription engineering, by Rishabh Gupta."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="reveal">
+				<p class="eyebrow">Code</p>
+				<h1>Open source &amp; tooling.</h1>
+				<p class="tagline">
+					A small set of libraries and experiments &mdash; mostly around
+					mobile payments, subscription state, and Android developer
+					experience. Built in the gaps between shipping at billion-install
+					scale.
+				</p>
+			</section>
+
+			<section class="reveal">
+				<h2>Featured</h2>
+				<article class="project">
+					<header class="project-head">
+						<h3>
+							<a href="https://github.com/rishabhships/renew-kt" target="_blank" rel="noopener">renew-kt</a>
+						</h3>
+						<span class="project-status">v0.1 &middot; Apache 2.0</span>
+					</header>
+					<p class="project-desc">
+						A deterministic Kotlin state machine for the Google Play Billing
+						subscription lifecycle. Models 7 canonical states (Active, InGracePeriod,
+						OnHold, Paused, Cancelled, Expired&hellip;) and 11 events, rejecting
+						invalid transitions with descriptive reasons instead of silently
+						leaving your app in an inconsistent state.
+					</p>
+					<ul class="project-meta">
+						<li><span>Stack</span> <strong>Kotlin / JVM, no Android deps</strong></li>
+						<li><span>Tests</span> <strong>21 unit tests, CI on every push</strong></li>
+						<li><span>Why</span> <strong>The Play Billing docs answer "what should happen" across many pages; this library encodes the answer in one place.</strong></li>
+					</ul>
+					<p class="project-links">
+						<a class="primary-btn" href="https://github.com/rishabhships/renew-kt" target="_blank" rel="noopener">
+							View on GitHub &rarr;
+						</a>
+					</p>
+				</article>
+			</section>
+
+			<section class="reveal">
+				<h2>In progress</h2>
+				<ul class="upcoming">
+					<li>
+						<strong>renew-play-billing</strong>
+						&mdash; adapter that converts Play Billing real-time developer
+						notifications and client-side <code>Purchase</code> payloads
+						directly into renew-kt events.
+					</li>
+					<li>
+						<strong>subscription-store</strong>
+						&mdash; a Coroutine <code>StateFlow</code>-backed wrapper over
+						the state machine for reactive observation in MVI / MVVM apps.
+					</li>
+					<li>
+						<strong>Writeups</strong>
+						&mdash; long-form posts on subscription state modelling, the
+						hidden complexity of cross-grade architectures, and the things
+						the Play Billing SDK doesn&rsquo;t tell you.
+						See <a href="/blog">/blog</a>.
+					</li>
+				</ul>
+			</section>
+
+			<section class="reveal">
+				<h2>Reach me</h2>
+				<div class="soft-cta">
+					<p>
+						Spot something off, or have a real-world Play Billing edge case
+						that should be modelled? Open an issue, or
+						<a href="mailto:rishabh@rishabhships.com?subject=renew-kt%20feedback">email me</a>.
+					</p>
+				</div>
+			</section>
+		</main>
+		<Footer />
+		<CassettePlayer />
+
+		<style>
+			.eyebrow {
+				font-size: 0.85em;
+				color: var(--accent-dark);
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				margin-bottom: 0.5em;
+			}
+			.tagline {
+				font-size: 1.15em;
+				color: var(--ink-muted);
+				margin-bottom: 2em;
+			}
+			.project {
+				border: 1px solid var(--border);
+				border-radius: 14px;
+				background: var(--bg-elevated);
+				padding: 1.5em 1.6em;
+				margin-top: 1em;
+				transition: transform 0.2s ease, box-shadow 0.2s ease;
+			}
+			.project:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+			}
+			.project-head {
+				display: flex;
+				align-items: baseline;
+				justify-content: space-between;
+				gap: 1em;
+				flex-wrap: wrap;
+				margin-bottom: 0.4em;
+			}
+			.project-head h3 {
+				margin: 0;
+				font-size: 1.5em;
+				font-weight: 700;
+				letter-spacing: -0.01em;
+			}
+			.project-head h3 a {
+				color: var(--ink);
+				text-decoration: none;
+				border-bottom: 2px solid transparent;
+				transition: border-color 0.18s ease, color 0.18s ease;
+			}
+			.project-head h3 a:hover {
+				color: var(--accent-dark);
+				border-bottom-color: var(--accent);
+			}
+			.project-status {
+				font-size: 0.82em;
+				color: var(--ink-soft);
+				font-weight: 500;
+				font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+				letter-spacing: 0.02em;
+			}
+			.project-desc {
+				color: var(--ink-muted);
+				margin: 0.4em 0 1em;
+				line-height: 1.55;
+			}
+			.project-meta {
+				list-style: none;
+				padding: 0;
+				margin: 0 0 1.2em;
+				border-top: 1px solid var(--border);
+			}
+			.project-meta li {
+				display: flex;
+				gap: 1em;
+				padding: 0.65em 0;
+				border-bottom: 1px solid var(--border);
+				font-size: 0.93em;
+				align-items: baseline;
+			}
+			.project-meta li:last-child { border-bottom: 0; }
+			.project-meta li > span {
+				color: var(--ink-soft);
+				font-weight: 500;
+				min-width: 4.5em;
+				flex-shrink: 0;
+			}
+			.project-meta li > strong {
+				color: var(--ink);
+				font-weight: 500;
+			}
+			.project-links {
+				margin: 0;
+			}
+			.primary-btn {
+				display: inline-block;
+				padding: 0.7em 1.4em;
+				background: var(--accent);
+				color: white;
+				border-radius: 8px;
+				text-decoration: none;
+				font-weight: 600;
+				transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+			}
+			.primary-btn:hover {
+				background: var(--accent-dark);
+				color: white;
+				transform: translateY(-1px);
+				box-shadow: 0 8px 18px rgba(13, 148, 136, 0.22);
+				text-decoration: none;
+			}
+			.upcoming {
+				list-style: none;
+				padding: 0;
+				margin: 0.5em 0;
+			}
+			.upcoming li {
+				padding: 0.7em 0;
+				border-bottom: 1px dashed var(--border);
+				color: var(--ink-muted);
+				line-height: 1.55;
+			}
+			.upcoming li:last-child { border-bottom: 0; }
+			.upcoming li strong {
+				color: var(--ink);
+				font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+				font-size: 0.95em;
+				font-weight: 600;
+				letter-spacing: -0.005em;
+			}
+			.upcoming code {
+				background: var(--bg-elevated);
+				padding: 0.1em 0.35em;
+				border-radius: 4px;
+				font-size: 0.92em;
+				border: 1px solid var(--border);
+			}
+			@media (max-width: 540px) {
+				.project { padding: 1.2em 1.1em; }
+				.project-head h3 { font-size: 1.3em; }
+				.project-meta li {
+					flex-direction: column;
+					gap: 0.1em;
+					padding: 0.6em 0;
+				}
+			}
+		</style>
+	</body>
+</html>
