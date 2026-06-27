@@ -14,7 +14,7 @@ The codebase that has twelve products — six product lines crossed with monthly
 
 ### The shape of the problem
 
-Acrobat has roughly six premium product lines, each available as monthly or yearly. So twelve SKUs, give or take, depending on which markets you're counting.
+The app I work on has roughly six premium product lines, each available as monthly or yearly. So twelve SKUs, give or take, depending on which markets you're counting.
 
 Users do not stay on the SKU they signed up for. They:
 
@@ -112,7 +112,7 @@ A few things about running a system like this in production that are worth sayin
 
 **Every matrix lookup gets logged.** Not the result, the *query*. Six months from now a user is going to dispute a transition, and the only way you'll reconstruct what happened is having (`user_id, from_sku, to_sku, ts, rule_returned`) in your warehouse. Don't skip this.
 
-**The matrix lives in config, not code, beyond a certain size.** Once product wants to A/B test rules ("offer a free month for the monthly-to-yearly transition in this region"), the matrix has to be tunable without a release. We landed on a small typed JSON, fetched on app start and cached locally for offline robustness.
+**The matrix lives in config, not code, beyond a certain size.** Once product wants to A/B test rules ("offer a free month for the monthly-to-yearly transition in this region"), the matrix has to be tunable without a release. One approach that works well is a small typed JSON, fetched on app start and cached locally for offline robustness.
 
 **Server is the source of truth for the matrix too.** The client renders UI based on it, but the actual transition is reconciled server-side, against the server's copy of the matrix. If they disagree, the server wins. This matters during gradual rollouts: clients in the wild will have a stale matrix for weeks.
 
