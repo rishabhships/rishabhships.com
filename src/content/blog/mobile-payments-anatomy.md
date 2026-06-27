@@ -8,7 +8,7 @@ Most Android developers have wired up Google Play Billing at some point. You add
 
 A year later, you have support tickets. Users who paid but see a free experience. Users who cancelled and still have premium. Users who upgraded and got charged twice. A Monday morning Slack message with a graph you didn't expect.
 
-I've spent the better part of four years owning the in-app payments stack for Acrobat Reader — 95M+ monthly active users, Google Play Billing, subscriptions across dozens of markets. This post is about what the full stack actually looks like once you've learned the hard lessons, and where the complexity that isn't in the docs lives.
+I've spent the better part of four years owning the in-app payments stack for a billion-install consumer Android app — 95M+ monthly active users, Google Play Billing, subscriptions across dozens of markets. This post is about what the full stack actually looks like once you've learned the hard lessons, and where the complexity that isn't in the docs lives.
 
 ## The layers
 
